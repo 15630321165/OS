@@ -1,0 +1,8 @@
+E:\操作系统\操作系统\operating_system\operating_system\obj\Debug\operating_system.exe
+E:\操作系统\操作系统\operating_system\operating_system\obj\Debug\operating_system.pdb
+E:\操作系统\操作系统\operating_system\operating_system\bin\Debug\operating_system.exe
+E:\操作系统\操作系统\operating_system\operating_system\bin\Debug\operating_system.pdb
+E:\操作系统\操作系统\operating_system\operating_system\obj\Debug\ResolveAssemblyReference.cache
+E:\操作系统\操作系统\operating_system\operating_system\obj\Debug\operating_system.Form1.resources
+E:\操作系统\操作系统\operating_system\operating_system\obj\Debug\operating_system.Properties.Resources.resources
+E:\操作系统\操作系统\operating_system\operating_system\obj\Debug\operating_system.csproj.GenerateResource.Cache

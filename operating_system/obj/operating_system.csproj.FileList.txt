@@ -1,0 +1,8 @@
+obj\Debug\ResolveAssemblyReference.cache
+obj\Debug\operating_system.Form1.resources
+obj\Debug\operating_system.Properties.Resources.resources
+obj\Debug\operating_system.csproj.GenerateResource.Cache
+bin\Debug\operating_system.exe
+bin\Debug\operating_system.pdb
+obj\Debug\operating_system.exe
+obj\Debug\operating_system.pdb
