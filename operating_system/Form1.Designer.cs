@@ -49,12 +49,6 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.textBox25 = new System.Windows.Forms.TextBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
@@ -68,6 +62,8 @@
             this.button3 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.groupBox1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -75,10 +71,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            this.groupBox5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             this.groupBox9.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -198,11 +194,11 @@
             this.groupBox2.Controls.Add(this.textBox2);
             this.groupBox2.Font = new System.Drawing.Font("幼圆", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox2.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.groupBox2.Location = new System.Drawing.Point(77, 479);
+            this.groupBox2.Location = new System.Drawing.Point(75, 656);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Size = new System.Drawing.Size(437, 366);
+            this.groupBox2.Size = new System.Drawing.Size(437, 258);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "文件管理";
@@ -224,7 +220,7 @@
             this.button2.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.button2.Font = new System.Drawing.Font("幼圆", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.button2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.button2.Location = new System.Drawing.Point(220, 321);
+            this.button2.Location = new System.Drawing.Point(226, 204);
             this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(102, 37);
@@ -238,7 +234,7 @@
             this.button1.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.button1.Font = new System.Drawing.Font("幼圆", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.button1.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.button1.Location = new System.Drawing.Point(330, 321);
+            this.button1.Location = new System.Drawing.Point(330, 204);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(97, 37);
@@ -265,7 +261,7 @@
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox2.Size = new System.Drawing.Size(419, 250);
+            this.textBox2.Size = new System.Drawing.Size(419, 137);
             this.textBox2.TabIndex = 1;
             // 
             // groupBox3
@@ -273,14 +269,14 @@
             this.groupBox3.Controls.Add(this.pictureBox4);
             this.groupBox3.Font = new System.Drawing.Font("幼圆", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox3.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.groupBox3.Location = new System.Drawing.Point(620, 185);
+            this.groupBox3.Location = new System.Drawing.Point(620, 226);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox3.Size = new System.Drawing.Size(424, 287);
             this.groupBox3.TabIndex = 0;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "本地磁盘";
+            this.groupBox3.Text = "本地磁盘C";
             // 
             // pictureBox4
             // 
@@ -291,70 +287,6 @@
             this.pictureBox4.Size = new System.Drawing.Size(40, 38);
             this.pictureBox4.TabIndex = 12;
             this.pictureBox4.TabStop = false;
-            // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.textBox4);
-            this.groupBox5.Controls.Add(this.pictureBox5);
-            this.groupBox5.Controls.Add(this.textBox3);
-            this.groupBox5.Controls.Add(this.label4);
-            this.groupBox5.Controls.Add(this.label3);
-            this.groupBox5.Font = new System.Drawing.Font("幼圆", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox5.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.groupBox5.Location = new System.Drawing.Point(620, 642);
-            this.groupBox5.Margin = new System.Windows.Forms.Padding(4);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox5.Size = new System.Drawing.Size(425, 203);
-            this.groupBox5.TabIndex = 0;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "磁盘使用情况";
-            // 
-            // textBox4
-            // 
-            this.textBox4.Location = new System.Drawing.Point(12, 153);
-            this.textBox4.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(210, 33);
-            this.textBox4.TabIndex = 5;
-            // 
-            // pictureBox5
-            // 
-            this.pictureBox5.BackgroundImage = global::operating_system.Properties.Resources.persent;
-            this.pictureBox5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox5.Location = new System.Drawing.Point(372, 15);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(50, 41);
-            this.pictureBox5.TabIndex = 12;
-            this.pictureBox5.TabStop = false;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(12, 79);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(210, 33);
-            this.textBox3.TabIndex = 4;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(8, 122);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(166, 24);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "磁盘空闲块数:";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 50);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(166, 24);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "磁盘使用块数:";
             // 
             // groupBox9
             // 
@@ -457,9 +389,9 @@
             this.groupBox4.Controls.Add(this.textBox1);
             this.groupBox4.Font = new System.Drawing.Font("幼圆", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox4.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.groupBox4.Location = new System.Drawing.Point(620, 479);
+            this.groupBox4.Location = new System.Drawing.Point(75, 490);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(424, 145);
+            this.groupBox4.Size = new System.Drawing.Size(437, 145);
             this.groupBox4.TabIndex = 12;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "命令接口";
@@ -471,7 +403,7 @@
             this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button3.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button3.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button3.Location = new System.Drawing.Point(314, 98);
+            this.button3.Location = new System.Drawing.Point(320, 98);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(104, 41);
             this.button3.TabIndex = 1;
@@ -482,7 +414,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(12, 59);
+            this.textBox1.Location = new System.Drawing.Point(20, 59);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(404, 33);
             this.textBox1.TabIndex = 0;
@@ -495,12 +427,35 @@
             this.label9.Size = new System.Drawing.Size(1135, 278);
             this.label9.TabIndex = 14;
             // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.pictureBox2);
+            this.groupBox5.Font = new System.Drawing.Font("幼圆", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox5.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.groupBox5.Location = new System.Drawing.Point(620, 549);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(424, 287);
+            this.groupBox5.TabIndex = 15;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "本地磁盘D";
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackgroundImage = global::operating_system.Properties.Resources.disk;
+            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox2.Location = new System.Drawing.Point(382, 17);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(40, 38);
+            this.pictureBox2.TabIndex = 13;
+            this.pictureBox2.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::operating_system.Properties.Resources.bkg;
-            this.ClientSize = new System.Drawing.Size(1135, 1000);
+            this.ClientSize = new System.Drawing.Size(1135, 982);
+            this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox1);
@@ -510,7 +465,6 @@
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox9);
             this.Controls.Add(this.label9);
             this.ForeColor = System.Drawing.SystemColors.HotTrack;
@@ -526,13 +480,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -546,13 +499,9 @@
         private System.Windows.Forms.TreeView treeView1;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System .Windows .Forms .Label [,]   c_lable=new System.Windows.Forms.Label [16,8];
+        private System.Windows.Forms.Label[,] c_lable = new System.Windows.Forms.Label[16, 8];
         private System.Windows.Forms.Label[,] d_lable = new System.Windows.Forms.Label[16, 8];
+
         private System.Windows.Forms.Label[] main_memory = new System.Windows.Forms.Label[64];
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.GroupBox groupBox9;
@@ -576,11 +525,12 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.PictureBox pictureBox4;
-        private System.Windows.Forms.PictureBox pictureBox5;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.PictureBox pictureBox2;
     }
 }
 

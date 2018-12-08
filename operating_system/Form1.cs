@@ -20,6 +20,8 @@ namespace operating_system
          * 长度1
          * 索引标志位
          */
+
+
         public Form1()
         {
             InitializeComponent();
@@ -42,8 +44,10 @@ namespace operating_system
             public int time;
         };
         public static byte[] Bitmapc = new byte[128];//---------------------------磁盘位示图
+        public static byte[] Bitmapd = new byte[128];
 
-        public static int disk_countc;//-------------------------------磁盘使用块数
+        public static int disk_countc;//-------------------------------磁盘c使用块数
+        public static int disk_countd;
         public static PCB[] PCB_ready = new PCB[10];
         public static PCB[] PCB_block = new PCB[10];
         public static PCB[] PCB_wait = new PCB[10];
@@ -52,13 +56,6 @@ namespace operating_system
         public static string path2 = "disk2.txt";
         public static string road;
         public static int time;//----------------------------------------------------记录时间
-
-
-
-
-
-
-
 
 
         private void Form1_Load(object sender, EventArgs e)//-------------------Form1_Load进行初始化工作
@@ -75,7 +72,7 @@ namespace operating_system
             {
                 deduce_disc();
                 deduce_treeview("c", 1);
- 
+
             }
             initiate_PCB();
             
@@ -95,10 +92,13 @@ namespace operating_system
             this.treeView1.Nodes.Add(tmp0);
             this.treeView1.SelectedNode = tmp0;
             TreeNode tmp1 = new TreeNode("磁盘C");
+            TreeNode tmp2 = new TreeNode("磁盘D");
             tmp1.ImageIndex = 1;
             tmp1.SelectedImageIndex = 1;
-
+            tmp2.ImageIndex = 1;
+            tmp2.SelectedImageIndex = 1;
             this.treeView1.SelectedNode.Nodes.Add(tmp1);
+            this.treeView1.SelectedNode.Nodes.Add(tmp2);
         }
 
         public void initiate_disc()//--------------------------------------------------------初始化磁盘
@@ -107,39 +107,50 @@ namespace operating_system
                 if (i <= 1) // 0,1存放文件分配表
                 {
                     Bitmapc[i] = 1;
+                    Bitmapd[i] = 1;
  
                 }
                 else
                 {
                     Bitmapc[i] = 0;
+                    Bitmapd[i] = 0;
 
                 }
             disk_countc = 2;
+            disk_countd = 2;
  
-            textBox3.Text = "";
-            textBox4.Text = "";
-           
-            textBox3.Text += disk_countc;
-            textBox4.Text += (128 - disk_countc);
-
-           
-
         }
         public void initiate_lable()
         {
+            // 磁盘C
             for (int i = 0; i < c_lable .GetLength(0); i++)
                 for (int j = 0; j < c_lable .GetLength(1); j++)
                 {
                     c_lable[i, j] = new Label();
-                    c_lable[i, j].BackColor = Color.White;
+                    c_lable[i, j].BackColor = Color.LightSkyBlue;
                     c_lable[i, j].Height = 16;
                     c_lable[i, j].Width = 16;
-                    c_lable[i, j].Location = new Point(25 +i * 16, 25 +j * 16);
+                    c_lable[i, j].Location = new Point(25 +i * 16, 50 +j * 16);
                     groupBox3.Controls.Add(c_lable [i,j]);
                 }
             c_lable[0,0].BackColor = Color.CornflowerBlue;
             c_lable[1,0].BackColor = Color.CornflowerBlue;
- 
+            // 磁盘D
+            for (int i = 0; i < c_lable.GetLength(0); i++)
+                for (int j = 0; j < c_lable.GetLength(1); j++)
+                {
+                    d_lable[i, j] = new Label();
+                    d_lable[i, j].BackColor = Color.LightSkyBlue;
+                    d_lable[i, j].Height = 16;
+                    d_lable[i, j].Width = 16;
+                    d_lable[i, j].Location = new Point(25 + i * 16, 50 + j * 16);
+                    groupBox5.Controls.Add(d_lable[i, j]);
+                }
+            d_lable[0, 0].BackColor = Color.LightSalmon;
+            d_lable[1, 0].BackColor = Color.LightSalmon;
+
+
+
         }//-----------------------------------------------------初始化lable
 
         public void initiate_catalog()//----------------------------------------------------初始化子目录
@@ -178,13 +189,9 @@ namespace operating_system
                         break;
                 Bitmapc[k] = 1;
                 disk_countc++;
-                textBox3.Text = "";
-                textBox4.Text = "";
-                textBox3.Text += disk_countc;
-                textBox4.Text += (128 - disk_countc);
                 x = k % 16;
                 y = k / 16;
-                c_lable[x, y].BackColor = Color.Red;
+                c_lable[x, y].BackColor = Color.LightSalmon;
             }
         
             else
@@ -197,7 +204,7 @@ namespace operating_system
                
                 x = k %16;
                 y =k/16 ;
-                d_lable[x, y].BackColor = Color.Red;;
+                d_lable[x, y].BackColor = Color.LightSalmon;
             }                       
             return Convert.ToByte(k) ;
         }                   
@@ -209,13 +216,9 @@ namespace operating_system
             {
                 Bitmapc[k] = 0;
                 disk_countc--;
-                textBox3.Text = "";
-                textBox4.Text = "";
-                textBox3.Text += disk_countc;
-                textBox4.Text += (128 - disk_countc);
                 x =k% 16 ;
                 y =k / 16 ;
-                c_lable[x, y].BackColor = Color.White;
+                c_lable[x, y].BackColor = Color.LightSkyBlue;
             }
  
         }
@@ -236,16 +239,22 @@ namespace operating_system
                     c_lable[x, y].BackColor = Color.LightSalmon; 
                     disk_countc++;
                 }
-            textBox3.Text = "";
-            textBox4.Text = "";
-            textBox3.Text += disk_countc;
-            textBox4.Text += (128 - disk_countc);
+
+
             fs = new FileStream(path2, FileMode.Open, FileAccess.Read);
             fs.Seek(0, SeekOrigin.Begin);
-
+            fs.Read(Bitmapd, 0, 128);
             fs.Close();
- 
-           
+            for (int i = 2; i < Bitmapd.Length; i++)
+                if (Bitmapd[i] == 1)
+                {
+                    x = Convert.ToInt32(i) % 16;
+                    y = Convert.ToInt32(i) / 16;
+                    d_lable[x, y].BackColor = Color.LightSalmon;
+                    disk_countd++;
+                }
+
+
         }
         public void deduce_treeview(string path, byte current)
         {
@@ -281,6 +290,7 @@ namespace operating_system
             fs.Close();
             return one;
         }
+
         public string read_name(string path0, byte current, int x)
         {
             FileStream fs = new FileStream(path0, FileMode.Open, FileAccess.ReadWrite);
@@ -1055,10 +1065,10 @@ namespace operating_system
                 for (int i = 0; i < c_lable.GetLength(0); i++)
                     for (int j = 0; j < c_lable.GetLength(1); j++)
                     {
-                        c_lable[i, j].BackColor = Color.White;
+                        c_lable[i, j].BackColor = Color.LightSkyBlue;
                     }
-                c_lable[0, 0].BackColor = Color.Red;
-                c_lable[1, 0].BackColor = Color.Red;
+                c_lable[0, 0].BackColor = Color.LightSalmon;
+                c_lable[1, 0].BackColor = Color.LightSalmon;
                 treeView1.SelectedNode = treeView1.Nodes[0].Nodes[0];
                 TreeNode t;
                 for (int i = 0; i < treeView1.SelectedNode.Nodes.Count; i++)
