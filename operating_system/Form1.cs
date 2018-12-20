@@ -12,14 +12,15 @@ namespace operating_system
 {
     public partial class Form1 : MetroFramework.Forms.MetroForm
     {
-        /*文件的结构
-         *标志位1个字节
-         * 文件名3
-         * 扩展名3
-         * 物理地址1
-         * 长度1
-         * 索引标志位
-         */
+        /* 文件的结构
+
+          标志位1个字节
+          文件名3
+          扩展名3
+          物理地址1
+          长度1
+          索引标志位
+        */
 
 
         public Form1()
@@ -72,7 +73,7 @@ namespace operating_system
             {
                 deduce_disc();
                 deduce_treeview("c", 1);
-
+                deduce_treeview("d", 1);
             }
             initiate_PCB();
             
@@ -120,7 +121,7 @@ namespace operating_system
             disk_countd = 2;
  
         }
-        public void initiate_lable()
+        public void initiate_lable() // 初始化磁盘位示图
         {
             // 磁盘C
             for (int i = 0; i < c_lable .GetLength(0); i++)
@@ -133,11 +134,11 @@ namespace operating_system
                     c_lable[i, j].Location = new Point(25 +i * 16, 50 +j * 16);
                     groupBox3.Controls.Add(c_lable [i,j]);
                 }
-            c_lable[0,0].BackColor = Color.CornflowerBlue;
-            c_lable[1,0].BackColor = Color.CornflowerBlue;
+            c_lable[0,0].BackColor = Color.LightSalmon;
+            c_lable[1,0].BackColor = Color.LightSalmon;
             // 磁盘D
-            for (int i = 0; i < c_lable.GetLength(0); i++)
-                for (int j = 0; j < c_lable.GetLength(1); j++)
+            for (int i = 0; i < d_lable.GetLength(0); i++)
+                for (int j = 0; j < d_lable.GetLength(1); j++)
                 {
                     d_lable[i, j] = new Label();
                     d_lable[i, j].BackColor = Color.LightSkyBlue;
@@ -169,9 +170,12 @@ namespace operating_system
                 file1.WriteByte(0);
             }
             file1.Close();
+            byte[] two = new byte[16384];
+            for (int i = 0; i < two.Length; i++)
+                two[i] = 0;
             FileStream file2 =new FileStream(path2,FileMode.CreateNew);
             file2.Seek(0,SeekOrigin.Begin);
-            file2.Write(one,0,one.Length);
+            file2.Write(two, 0, two.Length);
             for (int i = 0; i < 8; i++)
             {
                 file2.Seek(i*16+128, SeekOrigin.Begin);
@@ -193,17 +197,16 @@ namespace operating_system
                 y = k / 16;
                 c_lable[x, y].BackColor = Color.LightSalmon;
             }
-        
             else
             {
-                for (k = 0; k < Bitmapc.Length; k++)
-                    if (Bitmapc[k] == 0)
+                for (k = 2; k < Bitmapd.Length; k++)
+                    if (Bitmapd[k] == 0)
                         break;
-                Bitmapc[k] = 1;
-                disk_countc++;
+                Bitmapd[k] = 1;
+                disk_countd++;
                
-                x = k %16;
-                y =k/16 ;
+                x = k % 16;
+                y = k / 16 ;
                 d_lable[x, y].BackColor = Color.LightSalmon;
             }                       
             return Convert.ToByte(k) ;
@@ -216,9 +219,17 @@ namespace operating_system
             {
                 Bitmapc[k] = 0;
                 disk_countc--;
-                x =k% 16 ;
+                x =k % 16 ;
                 y =k / 16 ;
                 c_lable[x, y].BackColor = Color.LightSkyBlue;
+            }
+            else
+            {
+                Bitmapd[k] = 0;
+                disk_countd--;
+                x = k % 16;
+                y = k / 16;
+                d_lable[x, y].BackColor = Color.LightSkyBlue;
             }
  
         }
@@ -226,6 +237,7 @@ namespace operating_system
         {
             int x, y;
             disk_countc = 2;
+            disk_countd = 2;
 
             FileStream fs = new FileStream(path1, FileMode.Open, FileAccess.Read);
             fs.Seek(0,SeekOrigin.Begin);
@@ -267,26 +279,33 @@ namespace operating_system
                 path0=path2;
             for (int i = 0; i <8; i++)
                 if (read_one(path0,current,i)==1)
+                {
+                    path00 = path + '\\' + read_name(path0, current, i) + '\\' + read_expandname(path0, current, i);
+                    create_Node(path00);
                     if (read_expandname(path0, current, i) == "fil")
                     {
-                        path00 = path + '\\' + read_name(path0, current, i) + '\\' + read_expandname(path0, current, i);
-                        create_Node(path00);
                         three = read_add_lth(path0, current, i);
                         deduce_treeview(path + '\\' + read_name(path0, current, i), three[0]);
                     }
-                    else
-                    {
-                        path00 = path + '\\' + read_name(path0, current, i) + '\\' + read_expandname(path0, current, i);
-                        create_Node(path00);
-                    }
+                }
         }
 
         public byte read_one(string path0, byte current, int x)
         {
+            /*
+            try
+            {
+                
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("正在有进程访问此文件");
+            }
+            */
             FileStream fs = new FileStream(path0, FileMode.Open, FileAccess.ReadWrite);
-            fs.Seek(current *128+x*16,SeekOrigin.Begin);
+            fs.Seek(current * 128 + x * 16, SeekOrigin.Begin);
             byte one;
-            one=Convert.ToByte(fs.ReadByte());
+            one = Convert.ToByte(fs.ReadByte());
             fs.Close();
             return one;
         }
@@ -710,10 +729,14 @@ namespace operating_system
                 MessageBox.Show("没有此文件");
         }
 
-        public void edit_file(string path)
+        public void edit_file(string path,string new_add_content = "")
         {
             string contents=textBox2.Text ;
             textBox2.Text ="";
+            if(new_add_content != "")
+            {
+                contents = new_add_content;
+            }
             string[] paths = path.Split(new char[] { '\\', '.' });
             string path0;
             if (paths[0].StartsWith( "c") || paths[0].StartsWith ("C"))
@@ -948,7 +971,7 @@ namespace operating_system
             }//查找文件的for循环结束
         }//----------------------------------------编辑文件
 
-        public void type_file(string path)//----------------------------------------显示文件内容
+        public string type_file(string path)//----------------------------------------显示文件内容
         {
             textBox2.Enabled = true;
             string[] paths = path.Split(new char[] { '\\', '.' });
@@ -962,7 +985,7 @@ namespace operating_system
             {
                 MessageBox.Show("不可显示");
                 textBox2.Enabled = false;
-                return;
+                return "";
             }
             byte current = 1;
             byte[] three= new byte[3];
@@ -993,7 +1016,7 @@ namespace operating_system
                 {
                     MessageBox.Show("路径错误");
                     textBox2.Enabled = false;
-                    return;
+                    return "";
                 }
             }
             for (x = 0; x < 8; x++)
@@ -1011,6 +1034,7 @@ namespace operating_system
                             fs.Read(tmp00, 0, three[1]);
                             textBox2.Text = System.Text.Encoding.Default.GetString(tmp00);
                             fs.Close();
+                            return System.Text.Encoding.Default.GetString(tmp00);
                         }
                         else
                         {
@@ -1035,9 +1059,11 @@ namespace operating_system
                                 }
                             textBox2.Text = cont;
                             fs.Close();
+                            return cont; 
                         }
                     }
             }
+            return "";
         }
 
         public void format(string path)
@@ -1070,6 +1096,40 @@ namespace operating_system
                 c_lable[0, 0].BackColor = Color.LightSalmon;
                 c_lable[1, 0].BackColor = Color.LightSalmon;
                 treeView1.SelectedNode = treeView1.Nodes[0].Nodes[0];
+                TreeNode t;
+                for (int i = 0; i < treeView1.SelectedNode.Nodes.Count; i++)
+                {
+                    if (treeView1.SelectedNode.Nodes[i].Nodes.Count == 0)
+                    {
+                        treeView1.SelectedNode.Nodes[i].Remove();
+                        i--;
+                    }
+                    else
+                    {
+                        t = treeView1.SelectedNode;
+                        treeView1.SelectedNode = treeView1.SelectedNode.Nodes[i];
+                        delete_node();
+                        treeView1.SelectedNode = t;
+                        i--;
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 2; i < Bitmapd.Length; i++)
+                    if (Bitmapd[i] != 0)
+                    {
+                        return_blank(path, Convert.ToByte(i));
+                        Bitmapd[i] = 0;
+                    }
+                for (int i = 0; i < d_lable.GetLength(0); i++)
+                    for (int j = 0; j < d_lable.GetLength(1); j++)
+                    {
+                        d_lable[i, j].BackColor = Color.LightSkyBlue;
+                    }
+                d_lable[0, 0].BackColor = Color.LightSalmon;
+                d_lable[1, 0].BackColor = Color.LightSalmon;
+                treeView1.SelectedNode = treeView1.Nodes[0].Nodes[1];
                 TreeNode t;
                 for (int i = 0; i < treeView1.SelectedNode.Nodes.Count; i++)
                 {
@@ -1142,17 +1202,7 @@ namespace operating_system
             time = 0;
         }
         
-        
-
-       
-       
-
-        
-        
-      
-
-        
-       
+   
 
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -1174,7 +1224,8 @@ namespace operating_system
             fs.Close();
             fs = new FileStream(path2, FileMode.Open, FileAccess.ReadWrite);
             fs.Seek(0, SeekOrigin.Begin);
-//            fs.Write(Bitmapd, 0, Bitmapd.Length);
+            fs.Write(Bitmapd, 0, Bitmapd.Length);
+            fs.Close();
         }
         //-----------------------------------------------------------------------------图形接口
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
@@ -1397,10 +1448,85 @@ namespace operating_system
             }
         }
 
-
-        private void button3_Click(object sender, EventArgs e)
+        private void move_file(string disk)
         {
+            if (treeView1.SelectedNode.ImageIndex == 0 || treeView1.SelectedNode.ImageIndex == 1 || treeView1.SelectedNode.ImageIndex == 4)
+            {
+                return;
+            }
+            string paths = "";
+            TreeNode tmp00 = treeView1.SelectedNode;
+            string file_name = tmp00.Text;
+            while (tmp00.Text != "我的电脑")
+            {
+                string tmp01 = tmp00.Text;
+                if (paths == "")
+                    paths = tmp01;
+                else
+                {
+                    paths = tmp01 + "\\" + paths;
+                }
+                tmp00 = tmp00.Parent;
+            }
+            if (treeView1.SelectedNode.ImageIndex == 2)
+            {
+                paths += ".exe";
+                file_name += ".exe";
+            }
+            else if (treeView1.SelectedNode.ImageIndex == 3)
+            {
+                paths += ".txt";
+                file_name += ".txt";
+            }
 
+            string move_path = Microsoft.VisualBasic.Interaction.InputBox("请输入目标路径", "移动文件", "例如：aa\\bb\\cc", 0, 0);
+            if (!(move_path == "例如：aa\\bb\\cc"))
+            {
+                string[] split_move_path = move_path.Split('\\');
+                for (int i = 0; i < split_move_path.Length; i++)
+                {
+                    if (split_move_path[i].Length > 3)
+                    {
+                        MessageBox.Show("请按照格式输入");
+                        return;
+                    }
+                }
+                if(move_path=="")
+                {
+                    move_path = disk;
+                }
+                else
+                {
+                    move_path = disk + "\\" + move_path;
+                }
+            }
+            else
+            {
+                MessageBox.Show("请按照格式输入");
+                return;
+            }
+            move_path += "\\" + file_name;
+            paths = paths.Substring(2, paths.Length - 2);
+            string content = type_file(paths);
+
+            Console.WriteLine(content);
+
+            delete_Node(paths);
+            delete_File(paths);
+            Console.WriteLine(move_path);
+            create_Node(move_path);
+            add_file(move_path);
+            edit_file(move_path, content);
+        }
+
+        private void toolStripMenuItem7_Sub1_Click(object sender, EventArgs e)
+        {
+            move_file("C");
+        }
+
+        private void toolStripMenuItem7_Sub2_Click(object sender, EventArgs e)
+        {
+            move_file("D");
         }
 
     }
