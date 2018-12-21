@@ -7,36 +7,20 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Drawing.Drawing2D;
+using System.Runtime.InteropServices;
+
+
 
 namespace operating_system
 {
     public partial class Form1 : MetroFramework.Forms.MetroForm
     {
-        /* 文件的结构
-
-          标志位1个字节
-          文件名3
-          扩展名3
-          物理地址1
-          长度1
-          索引标志位
-        */
-
 
         public Form1()
         {
             InitializeComponent();
         }
-        public struct PCB
-        {
-            public int index;
-            public string command;
-            public int PC;
-            public int start;
-            public char instructment;
-            public int time;
-            public int result;
-        };//------------------------------------------------------------进程控制块儿
+        
         public struct Instruct
         {
             public char name;
@@ -49,14 +33,20 @@ namespace operating_system
 
         public static int disk_countc;//-------------------------------磁盘c使用块数
         public static int disk_countd;
-        public static PCB[] PCB_ready = new PCB[10];
-        public static PCB[] PCB_block = new PCB[10];
-        public static PCB[] PCB_wait = new PCB[10];
+
         public static Instruct[] instructment = new Instruct[6];  
         public static string path1 = "disk1.txt";
         public static string path2 = "disk2.txt";
         public static string road;
         public static int time;//----------------------------------------------------记录时间
+
+        [System.Runtime.InteropServices.DllImport("user32.dll", EntryPoint = "FindWindow", CharSet = CharSet.Auto)]
+        private extern static IntPtr FindWindow(string lpClassName, string lpWindowName);
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        public static extern int PostMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
+        public const int WM_CLOSE = 0x10;
+
+
 
 
         private void Form1_Load(object sender, EventArgs e)//-------------------Form1_Load进行初始化工作
@@ -134,7 +124,7 @@ namespace operating_system
                     c_lable[i, j].Location = new Point(25 +i * 16, 50 +j * 16);
                     groupBox3.Controls.Add(c_lable [i,j]);
                 }
-            c_lable[0,0].BackColor = Color.LightSalmon;
+            c_lable[0,0].BackColor = Color.Red;
             c_lable[1,0].BackColor = Color.LightSalmon;
             // 磁盘D
             for (int i = 0; i < d_lable.GetLength(0); i++)
@@ -147,7 +137,7 @@ namespace operating_system
                     d_lable[i, j].Location = new Point(25 + i * 16, 50 + j * 16);
                     groupBox5.Controls.Add(d_lable[i, j]);
                 }
-            d_lable[0, 0].BackColor = Color.LightSalmon;
+            d_lable[0, 0].BackColor = Color.Red;
             d_lable[1, 0].BackColor = Color.LightSalmon;
 
 
@@ -775,6 +765,7 @@ namespace operating_system
                     k++;
                 else
                 {
+                    MessageBox.Show("目录不存在");
                     return;
                 }
             }
@@ -1093,7 +1084,7 @@ namespace operating_system
                     {
                         c_lable[i, j].BackColor = Color.LightSkyBlue;
                     }
-                c_lable[0, 0].BackColor = Color.LightSalmon;
+                c_lable[0, 0].BackColor = Color.Red;
                 c_lable[1, 0].BackColor = Color.LightSalmon;
                 treeView1.SelectedNode = treeView1.Nodes[0].Nodes[0];
                 TreeNode t;
@@ -1127,7 +1118,7 @@ namespace operating_system
                     {
                         d_lable[i, j].BackColor = Color.LightSkyBlue;
                     }
-                d_lable[0, 0].BackColor = Color.LightSalmon;
+                d_lable[0, 0].BackColor = Color.Red;
                 d_lable[1, 0].BackColor = Color.LightSalmon;
                 treeView1.SelectedNode = treeView1.Nodes[0].Nodes[1];
                 TreeNode t;
@@ -1168,37 +1159,7 @@ namespace operating_system
 
         public void initiate_PCB()//--------------------------------------------------初始化PCB
         {
-            for (int i = 0; i < PCB_ready.Length ; i++)
-            {
-                PCB_ready[i].index = 0;
-                PCB_ready[i].PC = 0;
-                PCB_ready[i].result = 0;
-                PCB_ready[i].start = 4;
-                PCB_ready[i].time = 0;
-                PCB_ready[i].instructment = '\\';
-
-                PCB_block[i].index = 0;
-                PCB_block[i].PC = 0;                
-                PCB_block[i].result = 0;                
-                PCB_block[i].start = 4;
-                PCB_block[i].time = 0;
-                PCB_block[i].instructment = '\\';
-
-                PCB_wait[i].index = 0;
-                PCB_wait[i].PC = 0;
-                PCB_wait[i].result = 0;
-                PCB_wait[i].start = 4;
-                PCB_wait[i].time = 0;
-                PCB_wait[i].instructment = '\\';
-
-            }
-            for (int i = 0; i < instructment.Length; i++)
-            {
-                instructment[i].state = 0;
-                instructment[i].index = 0;
-            }
-            //count_process = 0;
-            //count_processes = 0;
+            
             time = 0;
         }
         
@@ -1365,6 +1326,31 @@ namespace operating_system
             type_file(paths);
         }
 
+        private void StartKiller()
+        {
+            Timer timer = new Timer();
+            timer.Interval = 3000; //3秒启动 
+            timer.Tick += new EventHandler(Timer_Tick);
+            timer.Start();
+        }
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            KillMessageBox();
+            //停止Timer 
+            ((Timer)sender).Stop();
+        }
+        private void KillMessageBox()
+        {
+            //按照MessageBox的标题，找到MessageBox的窗口 
+            IntPtr ptr = FindWindow(null, "文件执行");
+            if (ptr != IntPtr.Zero)
+            {
+                //找到则关闭MessageBox窗口 
+                PostMessage(ptr, WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
+            }
+        }
+
+
         private void toolStripMenuItem5_Click(object sender, EventArgs e)
         {
             if (treeView1.SelectedNode.ImageIndex == 0
@@ -1374,27 +1360,12 @@ namespace operating_system
             {
                 return;
             }
-            string paths = "";
             TreeNode tmp00 = treeView1.SelectedNode;
-            while (tmp00.Text != "我的电脑")
-            {
-                string tmp01 = tmp00.Text;
-                if (paths == "")
-                    paths = tmp01;
-                else
-                {
-                    paths = tmp01 + "\\" + paths;
-                }
-                tmp00 = tmp00.Parent;
-            }
-            if (treeView1.SelectedNode.ImageIndex == 2)
-                paths += ".exe";
-            else if (treeView1.SelectedNode.ImageIndex == 3)
-                paths += ".txt";
-            else
-                paths += ".fil";
-            paths = paths.Substring(2, paths.Length - 2);
-            //create_process(paths);
+            string file_name = tmp00.Text;
+
+            StartKiller();
+            MessageBox.Show(file_name + "文件正在执行中...", "文件执行" );
+
         }
 
         private void toolStripMenuItem6_Click(object sender, EventArgs e)
@@ -1448,7 +1419,7 @@ namespace operating_system
             }
         }
 
-        private void move_file(string disk)
+        private void move_file(string disk,bool flag=false)
         {
             if (treeView1.SelectedNode.ImageIndex == 0 || treeView1.SelectedNode.ImageIndex == 1 || treeView1.SelectedNode.ImageIndex == 4)
             {
@@ -1478,19 +1449,18 @@ namespace operating_system
                 paths += ".txt";
                 file_name += ".txt";
             }
-
-            string move_path = Microsoft.VisualBasic.Interaction.InputBox("请输入目标路径", "移动文件", "例如：aa\\bb\\cc", 0, 0);
-            if (!(move_path == "例如：aa\\bb\\cc"))
+            string notice = "";
+            if(flag==false)
             {
-                string[] split_move_path = move_path.Split('\\');
-                for (int i = 0; i < split_move_path.Length; i++)
-                {
-                    if (split_move_path[i].Length > 3)
-                    {
-                        MessageBox.Show("请按照格式输入");
-                        return;
-                    }
-                }
+                notice = "例如：aa\\bb\\cc";
+            }
+            else
+            {
+                notice = "例如：aa\\bb\\cc.txt";
+            }
+            string move_path = Microsoft.VisualBasic.Interaction.InputBox("请输入目标路径", "移动文件", notice, 0, 0);
+            if (!(move_path == notice))
+            {
                 if(move_path=="")
                 {
                     move_path = disk;
@@ -1505,18 +1475,28 @@ namespace operating_system
                 MessageBox.Show("请按照格式输入");
                 return;
             }
-            move_path += "\\" + file_name;
+            if(flag==false)
+            {
+                move_path += "\\" + file_name;
+            }
             paths = paths.Substring(2, paths.Length - 2);
             string content = type_file(paths);
 
             Console.WriteLine(content);
-
-            delete_Node(paths);
-            delete_File(paths);
+            if(flag==false)
+            {
+                delete_Node(paths);
+                delete_File(paths);
+                create_Node(move_path);
+                add_file(move_path);
+                edit_file(move_path, content);
+            }
+            else
+            {
+                edit_file(move_path,content);
+            }
             Console.WriteLine(move_path);
-            create_Node(move_path);
-            add_file(move_path);
-            edit_file(move_path, content);
+            
         }
 
         private void toolStripMenuItem7_Sub1_Click(object sender, EventArgs e)
@@ -1529,5 +1509,14 @@ namespace operating_system
             move_file("D");
         }
 
+        private void toolStripMenuItem8_Sub1_Click(object sender, EventArgs e)
+        {
+            move_file("C",true);
+        }
+
+        private void toolStripMenuItem8_Sub2_Click(object sender, EventArgs e)
+        {
+            move_file("D",true);
+        }
     }
 }

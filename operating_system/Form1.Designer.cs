@@ -39,6 +39,12 @@
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem7_Sub1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem7_Sub2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem8_Sub1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem8_Sub2 = new System.Windows.Forms.ToolStripMenuItem();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -61,9 +67,6 @@
             this.label9 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem7_Sub1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem7_Sub2 = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -106,6 +109,7 @@
             // 
             // contextMenuStrip1
             // 
+            this.contextMenuStrip1.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem1,
@@ -114,9 +118,10 @@
             this.toolStripMenuItem4,
             this.toolStripMenuItem5,
             this.toolStripMenuItem6,
-            this.toolStripMenuItem7});
+            this.toolStripMenuItem7,
+            this.toolStripMenuItem8});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(217, 256);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(191, 260);
             // 
             // toolStripMenuItem1
             // 
@@ -165,6 +170,53 @@
             this.toolStripMenuItem6.Size = new System.Drawing.Size(216, 32);
             this.toolStripMenuItem6.Text = "格式化磁盘";
             this.toolStripMenuItem6.Click += new System.EventHandler(this.toolStripMenuItem6_Click);
+            // 
+            // toolStripMenuItem7
+            // 
+            this.toolStripMenuItem7.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem7_Sub1,
+            this.toolStripMenuItem7_Sub2});
+            this.toolStripMenuItem7.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.toolStripMenuItem7.Name = "toolStripMenuItem7";
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(216, 32);
+            this.toolStripMenuItem7.Text = "移动文件至";
+            // 
+            // toolStripMenuItem7_Sub1
+            // 
+            this.toolStripMenuItem7_Sub1.Name = "toolStripMenuItem7_Sub1";
+            this.toolStripMenuItem7_Sub1.Size = new System.Drawing.Size(125, 32);
+            this.toolStripMenuItem7_Sub1.Text = "C盘";
+            this.toolStripMenuItem7_Sub1.Click += new System.EventHandler(this.toolStripMenuItem7_Sub1_Click);
+            // 
+            // toolStripMenuItem7_Sub2
+            // 
+            this.toolStripMenuItem7_Sub2.Name = "toolStripMenuItem7_Sub2";
+            this.toolStripMenuItem7_Sub2.Size = new System.Drawing.Size(125, 32);
+            this.toolStripMenuItem7_Sub2.Text = "D盘";
+            this.toolStripMenuItem7_Sub2.Click += new System.EventHandler(this.toolStripMenuItem7_Sub2_Click);
+            // 
+            // toolStripMenuItem8
+            // 
+            this.toolStripMenuItem8.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem8_Sub1,
+            this.toolStripMenuItem8_Sub2});
+            this.toolStripMenuItem8.Name = "toolStripMenuItem8";
+            this.toolStripMenuItem8.Size = new System.Drawing.Size(190, 32);
+            this.toolStripMenuItem8.Text = "复制文件至";
+            // 
+            // toolStripMenuItem8_Sub1
+            // 
+            this.toolStripMenuItem8_Sub1.Name = "toolStripMenuItem8_Sub1";
+            this.toolStripMenuItem8_Sub1.Size = new System.Drawing.Size(216, 32);
+            this.toolStripMenuItem8_Sub1.Text = "C盘";
+            this.toolStripMenuItem8_Sub1.Click += new System.EventHandler(this.toolStripMenuItem8_Sub1_Click);
+            // 
+            // toolStripMenuItem8_Sub2
+            // 
+            this.toolStripMenuItem8_Sub2.Name = "toolStripMenuItem8_Sub2";
+            this.toolStripMenuItem8_Sub2.Size = new System.Drawing.Size(216, 32);
+            this.toolStripMenuItem8_Sub2.Text = "D盘";
+            this.toolStripMenuItem8_Sub2.Click += new System.EventHandler(this.toolStripMenuItem8_Sub2_Click);
             // 
             // imageList1
             // 
@@ -414,30 +466,6 @@
             this.pictureBox2.TabIndex = 13;
             this.pictureBox2.TabStop = false;
             // 
-            // toolStripMenuItem7
-            // 
-            this.toolStripMenuItem7.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem7_Sub1,
-            this.toolStripMenuItem7_Sub2});
-            this.toolStripMenuItem7.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(216, 32);
-            this.toolStripMenuItem7.Text = "移动文件至";
-            // 
-            // toolStripMenuItem7_Sub1
-            // 
-            this.toolStripMenuItem7_Sub1.Name = "toolStripMenuItem7_Sub1";
-            this.toolStripMenuItem7_Sub1.Size = new System.Drawing.Size(216, 32);
-            this.toolStripMenuItem7_Sub1.Text = "C盘";
-            this.toolStripMenuItem7_Sub1.Click += new System.EventHandler(this.toolStripMenuItem7_Sub1_Click);
-            // 
-            // toolStripMenuItem7_Sub2
-            // 
-            this.toolStripMenuItem7_Sub2.Name = "toolStripMenuItem7_Sub2";
-            this.toolStripMenuItem7_Sub2.Size = new System.Drawing.Size(216, 32);
-            this.toolStripMenuItem7_Sub2.Text = "D盘";
-            this.toolStripMenuItem7_Sub2.Click += new System.EventHandler(this.toolStripMenuItem7_Sub2_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -517,6 +545,9 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem7;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem7_Sub1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem7_Sub2;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem8;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem8_Sub1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem8_Sub2;
     }
 }
 
