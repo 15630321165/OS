@@ -322,7 +322,7 @@
             this.groupBox3.Controls.Add(this.pictureBox4);
             this.groupBox3.Font = new System.Drawing.Font("幼圆", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox3.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.groupBox3.Location = new System.Drawing.Point(620, 226);
+            this.groupBox3.Location = new System.Drawing.Point(618, 185);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
@@ -335,7 +335,7 @@
             // 
             this.pictureBox4.BackgroundImage = global::operating_system.Properties.Resources.disk;
             this.pictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox4.Location = new System.Drawing.Point(382, 16);
+            this.pictureBox4.Location = new System.Drawing.Point(384, 16);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(40, 38);
             this.pictureBox4.TabIndex = 12;
@@ -460,7 +460,7 @@
             // 
             this.pictureBox2.BackgroundImage = global::operating_system.Properties.Resources.disk;
             this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox2.Location = new System.Drawing.Point(382, 17);
+            this.pictureBox2.Location = new System.Drawing.Point(382, 18);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(40, 38);
             this.pictureBox2.TabIndex = 13;
